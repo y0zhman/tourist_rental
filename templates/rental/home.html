@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная — GearRent{% endblock %}
+
+{% block content %}
+<div class="text-center py-5 bg-light rounded mb-4">
+    <h1 class="display-4">
+        <i class="bi bi-backpack2 text-primary"></i> GearRent
+    </h1>
+    <p class="lead">Аренда туристического снаряжения по доступным ценам</p>
+    <a href="{% url 'rental:equipment_list' %}" class="btn btn-primary btn-lg mt-3">
+        <i class="bi bi-search"></i> Перейти в каталог
+    </a>
+</div>
+
+<div class="row text-center">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <i class="bi bi-tent display-4 text-primary"></i>
+                <h5 class="card-title mt-3">Большой выбор</h5>
+                <p class="card-text">Палатки, спальники, рюкзаки и многое другое</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <i class="bi bi-cash-coin display-4 text-primary"></i>
+                <h5 class="card-title mt-3">Доступные цены</h5>
+                <p class="card-text">Аренда от 200 ₽ в день</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <i class="bi bi-shield-check display-4 text-primary"></i>
+                <h5 class="card-title mt-3">Проверенное снаряжение</h5>
+                <p class="card-text">Всё снаряжение регулярно обслуживается</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
