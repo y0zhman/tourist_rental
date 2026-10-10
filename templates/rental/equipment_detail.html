@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ equipment.name }} — GearRent{% endblock %}
+
+{% block content %}
+
+<!-- Хлебные крошки -->
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'rental:home' %}">Главная</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'rental:equipment_list' %}">Каталог</a>
+        </li>
+        {% if equipment.category %}
+            <li class="breadcrumb-item">
+                <a href="{% url 'rental:equipment_list' %}?category={{ equipment.category.id }}">
+                    {{ equipment.category.name }}
+                </a>
+            </li>
+        {% endif %}
+        <li class="breadcrumb-item active">{{ equipment.name }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <!-- Фото -->
+    <div class="col-md-6 mb-4">
+        {% if equipment.image %}
+            <img src="{{ equipment.image.url }}" 
+                 class="img-fluid rounded shadow-sm" 
+                 alt="{{ equipment.name }}"
+                 style="width: 100%; max-height: 500px; object-fit: cover;">
+        {% else %}
+            <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                 style="height: 400px;">
+                <i class="bi bi-image text-muted" style="font-size: 5rem;"></i>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Информация -->
+    <div class="col-md-6 mb-4">
+        <h1 class="mb-2">{{ equipment.name }}</h1>
+        
+        {% if equipment.category %}
+            <p class="text-muted mb-3">
+                <i class="bi bi-tag"></i> {{ equipment.category.name }}
+            </p>
+        {% endif %}
+
+        <!-- Статус -->
+        <div class="mb-3">
+            {% if equipment.quantity_available > 0 %}
+                <span class="badge bg-success fs-6">
+                    <i class="bi bi-check-circle"></i> 
+                    Доступно: {{ equipment.quantity_available }} из {{ equipment.quantity_total }}
+                </span>
+            {% else %}
+                <span class="badge bg-danger fs-6">
+                    <i class="bi bi-x-circle"></i> Нет в наличии
+                </span>
+            {% endif %}
+        </div>
+
+        <!-- Цена -->
+        <div class="card bg-light mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Цена за день:</span>
+                    <strong class="text-primary fs-4">{{ equipment.price_per_day }} ₽</strong>
+                </div>
+                {% if equipment.deposit %}
+                    <div class="d-flex justify-content-between">
+                        <span>Залог:</span>
+                        <strong>{{ equipment.deposit }} ₽</strong>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Описание -->
+        {% if equipment.description %}
+            <h5>Описание</h5>
+            <p>{{ equipment.description|linebreaks }}</p>
+        {% endif %}
+
+        <!-- Форма бронирования (заглушка) -->
+        <div class="card border-primary mt-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-calendar-check text-primary"></i> Забронировать
+                </h5>
+                
+                {% if equipment.quantity_available > 0 %}
+                    <p class="text-muted small">
+                        Выберите даты аренды:
+                    </p>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small">Дата начала</label>
+                            <input type="date" class="form-control" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small">Дата окончания</label>
+                            <input type="date" class="form-control" disabled>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary w-100" disabled>
+                        <i class="bi bi-lock"></i> Войдите, чтобы забронировать
+                    </button>
+                    
+                    <p class="text-muted small text-center mt-2 mb-0">
+                        <em>Форма бронирования будет добавлена на следующем шаге</em>
+                    </p>
+                {% else %}
+                    <div class="alert alert-warning mb-0">
+                        <i class="bi bi-exclamation-triangle"></i> 
+                        Снаряжение временно недоступно.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Назад -->
+        <a href="{% url 'rental:equipment_list' %}" class="btn btn-outline-secondary mt-3">
+            <i class="bi bi-arrow-left"></i> Назад в каталог
+        </a>
+    </div>
+</div>
+
+{% endblock %}
