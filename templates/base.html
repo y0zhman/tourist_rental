@@ -35,16 +35,16 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-person-circle"></ii> {{ user.username}}
                             </ia>
-                            <ul class="dropdowm-menu dropdown-menu-end">
+                            <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <a class="dropdown-item" href="#">
-                                        <i lass="bi bi-person"></i> Профиль
+                                    <a class="dropdown-item" href="{% url 'rental:my_bookings' %}">
+                                        <i class="bi bi-clock-history"></i> Мои бронирования
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="post" action="{% url 'logout' %}" class="d-inline">
-                                         {% csrf_token %}
+                                        {% csrf_token %}
                                         <button type="submit" class="dropdown-item">
                                             <i class="bi bi-box-arrow-right"></i> Выйти
                                         </button>

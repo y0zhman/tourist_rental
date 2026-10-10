@@ -8,4 +8,5 @@ urlpatterns = [
     path('catalog/', views.equipment_list, name='equipment_list'),
     path('equipment/<int:pk>/', views.equipment_detail, name='equipment_detail'),
     path('register/', views.register, name='register'),
+    path('my-bookings/', views.my_bookings, name='my_bookings'),  # ← добавляем
 ]
