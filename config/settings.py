@@ -124,3 +124,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Куда перенаправлять после входа/выхода
+LOGIN_REDIRECT_URL = '/'           # после входа — на главную
+LOGOUT_REDIRECT_URL = '/'          # после выхода — на главную
+LOGIN_URL = '/accounts/login/'     # куда отправлять неавторизованных

@@ -33,3 +33,21 @@ def equipment_detail(request, pk):
         'equipment': item,
     }
     return render(request, 'rental/equipment_detail.html', context)
+
+from django.shortcuts import redirect
+from django.contrib.auth import login
+from .forms import RegisterForm
+
+
+def register(request):
+    """Регистрация нового пользователя"""
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # автоматический вход после регистрации
+            return redirect('rental:home')
+    else:
+        form = RegisterForm()
+    
+    return render(request, 'rental/register.html', {'form': form})

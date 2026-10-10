@@ -31,15 +31,36 @@
                 </ul>
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <span class="navbar-text text-white me-3">
-                                <i class="bi bi-person-circle"></i> {{ user.username }}
-                            </span>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></ii> {{ user.username}}
+                            </ia>
+                            <ul class="dropdowm-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i lass="bi bi-person"></i> Профиль
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                         {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="bi bi-box-arrow-right"></i> Выйти
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="bi bi-box-arrow-in-right"></i> Войти
+                                <a class="nav-link" href="{% url 'login' %}">
+                                    <i class="bi bi-box-arrow-in-right"></i> Войти
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'rental:register' %}">
+                                <i class="bi bi-person-plus"></i> Регистрация
                             </a>
                         </li>
                     {% endif %}
